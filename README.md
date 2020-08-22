@@ -3,6 +3,9 @@
 NPM package enabling your [NodeJs] application to interface with the features of [NMAP].  This package requires that [NMAP] is installed and available to the running node application.
 If [VULNERS] script is installed, this package is able to parse the output to [NodeJs].
 
+UPDATE 1.0.1
+* Improved Service and Vulnerabilities integration
+
 UPDATE 1.0.0 (Tommaso Pezzi)
 * Forked the [node-nmap] NPM package to read and parse the Vulners script output.
   + Vulners.nse must be installed.(https://github.com/vulnersCom/nmap-vulners)
