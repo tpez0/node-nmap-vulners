@@ -71,7 +71,6 @@ function convertRawJsonToScanResults(xmlInput) {
       })
 
       newHost.openPorts = openPorts.map((portItem) => {
-        // console.log(JSON.stringify(portItem, null, 4))
 
         const port = parseInt(portItem.$.portid)
         const protocol = portItem.$.protocol
@@ -83,12 +82,24 @@ function convertRawJsonToScanResults(xmlInput) {
         // check for <script> tag on nmap output
         if (portItem.script) {
           var scriptID = portItem.script[0].$.id
-          var scriptOutput = portItem.script[0].$.output
-          // check for 'vulners' on <script id="" >
+          // console.log(scriptID)
+          var scriptOutput = [];
           for (var i = 0; i < portItem.script.length; i++) {
             if (portItem.script[i].$.id === 'vulners') {
               scriptID = portItem.script[i].$.id
-              scriptOutput = portItem.script[i].$.output
+              //console.log(portItem.script[i].$.output)
+              
+              for (var j = 0; j < portItem.script[i].table.length; j++) {
+                for (var k = 0; k < portItem.script[i].table[j].table.length; k++) {
+                  for (var l = 0; l < portItem.script[i].table[j].table[k].elem.length; l++) {
+                    if (portItem.script[i].table[j].table[k].elem[l]._.startsWith("CVE")) {
+                      temp = portItem.script[i].table[j].table[k].elem[l]._;
+                      scriptOutput.push(temp)
+                    }
+
+                  }
+                }
+              }
               /* uncomment to debug
                 console.log("scriptID = " + scriptID)
                 console.log("scriptOutput = " + scriptOutput)
@@ -108,20 +119,9 @@ function convertRawJsonToScanResults(xmlInput) {
         if (tunnel) portObject.tunnel = tunnel
         if (method) portObject.method = method
         if (product) portObject.product = product
-
-        // parse RegExp from output and assign to portObject.vulners
-        if (scriptID === 'vulners') {   //************* */
-
-          var scriptOutput = scriptOutput.replace(
-            new RegExp( "\\n", "g" ), 'LINEFEED');
-          var scriptOutput = scriptOutput.replace(
-            new RegExp( "\\r", "g" ), 'LINEFEED');
-          var scriptOutput = scriptOutput.replace(
-            new RegExp( "\\t", "g" ), ' ');
-
-          portObject.vulners = scriptOutput //************* */
+        if (scriptID === 'vulners') { 
+          portObject.vulners = scriptOutput 
         }
-        //
 
         return portObject
       })
