@@ -1,14 +1,18 @@
 # Node-NMAP-Vulners
 
-NPM package enabling your [NodeJs] application to interface with the features of [NMAP].  This package requires that [NMAP] is installed and available to the running node application.
+NPM package enabling your [NodeJs] application to interface with the features of [NMAP].  
+This package requires that [NMAP] is installed and available to the running node application.
 If [VULNERS] script is installed, this package is able to parse the output to [NodeJs].
+
+UPDATE 1.0.2
+* Edited README.MD
 
 UPDATE 1.0.1
 * Improved Service and Vulnerabilities integration
 
 UPDATE 1.0.0 (Tommaso Pezzi)
 * Forked the [node-nmap] NPM package to read and parse the Vulners script output.
-  + Vulners.nse must be installed.(https://github.com/vulnersCom/nmap-vulners)
+*  + Vulners.nse must be installed.(https://github.com/vulnersCom/nmap-vulners)
 
 
 ## Installation
@@ -43,6 +47,12 @@ The return structure is:
           {  
              "port":80,
              "service":"http"
+	     "vulners":[
+  			'CVE-2011-4130',
+  			'CVE-2010-3867',
+  			'CVE-2010-4652',
+  			'CVE-2009-0543',
+			]
           },...  
         ],
        "osNmap":null, //note that osNmap is not guaranteed to be correct.
@@ -83,7 +93,12 @@ nmapscan.startScan();
 //       "ip":"74.125.21.113",
 //       "mac":null,
 //       "openPorts":[  
-
+//			"vulners":[
+// 					'CVE-2011-4130',
+//  					'CVE-2010-3867',
+//  					'CVE-2010-4652',
+//  					'CVE-2009-0543',
+//				]
 //       ],
 //       "osNmap":null
 //    }
@@ -108,7 +123,12 @@ nmapscan.startScan();
 //       "ip":"127.0.0.1",
 //       "mac":null,
 //       "openPorts":[  
-
+//			"vulners":[
+//  					'CVE-2011-4130',
+//  					'CVE-2010-3867',
+//  					'CVE-2010-4652',
+//  					'CVE-2009-0543',
+//				],
 //       ],
 //       "osNmap":null
 //    },
@@ -126,5 +146,5 @@ nmapscan.startScan();
 Please open an issue if you have any questions, concerns, bugs, or critiques.
 
 [NMAP]: <https://nmap.org/>
-[NPM]: <https://www.npmjs.com/>
+[NPM]: <https://www.npmjs.com/package/node-nmap-vulners>
 [NodeJs]: <https://nodejs.org/en/>
